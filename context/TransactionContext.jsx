@@ -91,7 +91,11 @@ export const TransactionProvider = ({ children }) => {
         try {
             if (!metamask) return alert('Please install metamask ')
 
-
+            const chainId = await ethereum.request({ method: 'eth_chainId' });
+            if (chainId !== '0x4') {
+                alert('Please connect to RINKEBY');
+                return;
+            }
             const accounts = await metamask.request({ method: 'eth_accounts' })
 
             if (accounts.length) {
@@ -107,7 +111,11 @@ export const TransactionProvider = ({ children }) => {
     const connectWallet = async (metamask = eth) => {
         try {
             if (!metamask) return alert('Please install metamask ')
-
+            const chainId = await ethereum.request({ method: 'eth_chainId' });
+            if (chainId !== '0x4') {
+                alert('Please connect to RINKEBY');
+                return;
+            }
 
             const accounts = await metamask.request({ method: 'eth_requestAccounts' })
 
