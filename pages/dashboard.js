@@ -27,7 +27,7 @@ const Dashboard = () => {
         </div>
         <div className='mt-6'>
           {invoices.map(invoice => (
-            <div className="grid grid-cols-2 items-center p-6 space-x-6 bg-white rounded-xl shadow-lg hover:shadow-xl ">
+            <div key={invoice.id} className="grid grid-cols-2 items-center p-6 space-x-6 bg-white rounded-xl shadow-lg hover:shadow-xl ">
 
               <span className='ml-6'>BUYER PAN:</span><p className="text-black text-sm font-semibold border px-5 py-3 rounded-lg hover:text-black hover:border-black">{invoice.buyerPAN}</p>
               <span>SELLER PAN:</span><p className="text-black text-sm font-semibold border px-5 py-3 rounded-lg hover:text-black hover:border-black">{invoice.sellerPAN}</p>
