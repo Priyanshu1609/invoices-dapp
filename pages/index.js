@@ -90,8 +90,9 @@ export default function Home() {
             <button type="submit" onClick={e => addInvoice(e)} className={style.button}>Submit</button>
           </form>
         </div>}
-        {!currentAccount && <div className='h-screen w-full font-semibold text-5xl flex items-center justify-center'>
+        {!currentAccount && <div className='h-screen w-full font-semibold text-5xl flex flex-col items-center justify-center'>
           <p>Please Login to Continue</p>
+          <p className='text-lg mt-4'>Use RINKEBY to login</p>
         </div>}
       </div>
     </div>

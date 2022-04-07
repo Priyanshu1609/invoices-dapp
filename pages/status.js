@@ -30,10 +30,9 @@ const Status = () => {
                         
                         ))}
                     </div> */}
-                <div className="grid grid-cols-2 items-center p-6 space-x-6 bg-white rounded-xl shadow-lg hover:shadow-xl ">
+                <div className="grid grid-cols-2 items-center p-6 space-x-6 bg-white rounded-xl shadow-lg hover:shadow-xl mt-4">
 
                     <span className='ml-6'>PAYMENT STATUS:</span><p className="text-black text-sm font-semibold border px-5 py-3 rounded-lg hover:text-black hover:border-black">{fetchStatus}</p>
-
 
                 </div>
             </div>

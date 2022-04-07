@@ -65,10 +65,10 @@ export const TransactionProvider = ({ children }) => {
             const contract = new ethers.Contract(contractAddress, InvoiceAbi.abi, provider)
             try {
                 const paymentStatus = await contract.getPaymentStatus(_invoiceNumber)
-                console.log('Payment Status: ', paymentStatus.toString())
                 setFetchStatus(paymentStatus.toString())
-            } catch (err) {
-                console.log("Error: ", err)
+                alert("Payment Status fetched successfully")
+            } catch (error) {
+                console.error("Error: ", error)
             }
         }
     }
@@ -80,10 +80,9 @@ export const TransactionProvider = ({ children }) => {
             try {
                 const invoices = await contract.getInvoices(_buyerPan)
                 setInvoices(invoices);
-                console.log(invoices)
                 alert('Invoices fetched successfully')
-            } catch (err) {
-                console.log("Error: ", err)
+            } catch (error) {
+                console.error("Error: ", error)
             }
         }
     }
@@ -91,7 +90,7 @@ export const TransactionProvider = ({ children }) => {
     const checkIfWalletIsConnected = async (metamask = eth) => {
         try {
             if (!metamask) return alert('Please install metamask ')
-          
+
 
             const accounts = await metamask.request({ method: 'eth_accounts' })
 
