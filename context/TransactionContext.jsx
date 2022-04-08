@@ -48,6 +48,7 @@ export const TransactionProvider = ({ children }) => {
         e.preventDefault()
         if (!buyerPAN && !sellerPAN && !amount && !date && !sellerAddress) return
         if (typeof window.ethereum !== 'undefined') {
+            setIsLoading(true);
             await requestAccount()
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner()
@@ -56,11 +57,13 @@ export const TransactionProvider = ({ children }) => {
             await transaction.wait()
             console.log("Invoice Succesfully Created")
             alert("Invoice Succesfully Created")
+            setIsLoading(false);
         }
     }
 
     async function getPaymentStatus(_invoiceNumber) {
         if (typeof window.ethereum !== 'undefined') {
+            setIsLoading(true);
             const provider = new ethers.providers.Web3Provider(window.ethereum)
             const contract = new ethers.Contract(contractAddress, InvoiceAbi.abi, provider)
             try {
@@ -69,7 +72,9 @@ export const TransactionProvider = ({ children }) => {
                 alert("Payment Status fetched successfully")
             } catch (error) {
                 console.error("Error: ", error)
+                setIsLoading(false);
             }
+            setIsLoading(false);
         }
     }
 
@@ -78,12 +83,15 @@ export const TransactionProvider = ({ children }) => {
             const provider = new ethers.providers.Web3Provider(window.ethereum)
             const contract = new ethers.Contract(contractAddress, InvoiceAbi.abi, provider)
             try {
+                setIsLoading(true);
                 const invoices = await contract.getInvoices(_buyerPan)
                 setInvoices(invoices);
                 alert('Invoices fetched successfully')
             } catch (error) {
                 console.error("Error: ", error)
+                setIsLoading(false);
             }
+            setIsLoading(false);
         }
     }
 
@@ -126,7 +134,6 @@ export const TransactionProvider = ({ children }) => {
             throw new Error('No ethereum object.')
         }
     }
-
 
     useEffect(() => {
         checkIfWalletIsConnected()

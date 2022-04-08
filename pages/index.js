@@ -3,16 +3,35 @@ import Image from 'next/image'
 import { useContext } from 'react'
 import { useState } from 'react';
 import { ethers } from 'ethers'
-
+import Modal from 'react-modal'
+Modal.setAppElement('#__next')
 import InvoiceData from '../src/artifacts/contracts/Invoice.sol/Invoice.json'
 const invoicedataAddress = '0x357b5Dc86F6248e2Bd75233e2B2Ad1FA58C09a06'
 import { TransactionContext } from '../context/TransactionContext';
+import TransactionLoader from '../components/TransactionLoader';
 
 const style = {
   input: `block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer`,
   label: `absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6`,
   button: `text-black text-sm font-semibold border px-4 py-2 rounded-lg hover:text-black hover:border-black w-72 mt-4 mx-44`,
 }
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: '#0a0b0d',
+    padding: 0,
+    border: 'none',
+  },
+  overlay: {
+    backgroundColor: 'rgba(10, 11, 13, 0.75)',
+  },
+}
+
 
 export default function Home() {
 
@@ -25,7 +44,8 @@ export default function Home() {
     setPaymentStatus,
     setInvoiceNumber,
     addInvoice,
-    currentAccount
+    currentAccount,
+    isLoading
   } = useContext(TransactionContext)
 
   return (
@@ -95,6 +115,9 @@ export default function Home() {
           <p className='text-lg mt-4'>Use RINKEBY to login</p>
         </div>}
       </div>
+      <Modal isOpen={isLoading} style={customStyles}>
+        <TransactionLoader />
+      </Modal>
     </div>
   )
 }

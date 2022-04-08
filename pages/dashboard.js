@@ -1,8 +1,27 @@
 import React, { useState, useContext } from 'react'
 import { TransactionContext } from '../context/TransactionContext'
+import Modal from 'react-modal'
+import TransactionLoader from '../components/TransactionLoader'
+Modal.setAppElement('#__next')
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: '#0a0b0d',
+    padding: 0,
+    border: 'none',
+  },
+  overlay: {
+    backgroundColor: 'rgba(10, 11, 13, 0.75)',
+  },
+}
+
 
 const Dashboard = () => {
-  const { getInvoices, invoices } = useContext(TransactionContext);
+  const { getInvoices, invoices, isLoading  } = useContext(TransactionContext);
   const [search, setSearch] = useState('')
 
   const handleSearch = (e) => {
@@ -41,6 +60,9 @@ const Dashboard = () => {
           ))}
         </div>
       </div>
+      <Modal isOpen={isLoading} style={customStyles}>
+        <TransactionLoader />
+      </Modal>
     </div>
   )
 }
